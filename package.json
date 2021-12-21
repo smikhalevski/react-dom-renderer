@@ -1,6 +1,6 @@
 {
   "name": "@smikhalevski/react-html-renderer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Renders HTML source as React nodes using customizable element renderer.",
   "main": "./lib/index-cjs.js",
   "module": "./lib/index.js",
