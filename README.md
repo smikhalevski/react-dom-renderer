@@ -1,0 +1,1 @@
+# react-html-renderer [![build](https://github.com/smikhalevski/react-html-renderer/actions/workflows/master.yml/badge.svg?branch=master&event=push)](https://github.com/smikhalevski/react-html-renderer/actions/workflows/master.yml)

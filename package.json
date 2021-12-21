@@ -1,0 +1,68 @@
+{
+  "name": "@smikhalevski/react-html-renderer",
+  "version": "1.0.0",
+  "description": "Renders HTML as React nodes.",
+  "main": "./lib/index-cjs.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc && npm run rollup && npm run terser",
+    "rollup": "rollup --external @smikhalevski/event-bus,react --input ./lib/index.js --file ./lib/index-cjs.js --format cjs --plugin @rollup/plugin-node-resolve",
+    "terser": "for file in $(find ./lib -name '*.js'); do terser --compress --mangle --mangle-props regex=/^_/ --output $file -- $file; done || exit 1",
+    "clean": "rm -rf ./lib ./docs",
+    "test": "jest --detectOpenHandles",
+    "docs": "typedoc ./src/main/index.ts",
+    "publish-docs": "[ -d ./docs ] && [[ ! $(git status --porcelain) ]] && branch=$(git rev-parse --abbrev-ref HEAD) && sha=$(git rev-parse --short HEAD) && t=$(mktemp -d) && cp -R ./docs/ $t && git checkout ghpages && ls -A | grep -wv .git | xargs rm -rf && cp -R $t/ . && git add . && git commit -m \"Updated docs ($sha)\" && git push && git checkout $branch",
+    "release-docs": "npm run clean && npm run docs && npm run publish-docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smikhalevski/react-html-renderer.git"
+  },
+  "keywords": [
+    "react",
+    "html",
+    "render"
+  ],
+  "author": "Savva Mikhalevski <smikhalevski@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/smikhalevski/react-html-renderer/issues"
+  },
+  "homepage": "https://github.com/smikhalevski/react-html-renderer#readme",
+  "jest": {
+    "preset": "ts-jest",
+    "setupFiles": [
+      "./src/test/test-init.ts"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "ignoreCodes": [
+            151001
+          ]
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@types/jest": "^27.0.3",
+    "@types/react": "^17.0.37",
+    "jest": "^27.0.2",
+    "rollup": "^2.50.5",
+    "terser": "^5.7.0",
+    "ts-jest": "^27.0.2",
+    "typescript": "^4.3.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.14.0"
+  },
+  "dependencies": {
+    "tag-soup": "^1.1.0"
+  }
+}
