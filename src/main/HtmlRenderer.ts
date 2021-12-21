@@ -18,13 +18,15 @@ export interface IHtmlRendererProps {
   elementRenderer?: ElementRenderer;
 }
 
+/**
+ * Renders HTML source as React nodes using customizable element renderer.
+ */
 export const HtmlRenderer: VFC<IHtmlRendererProps> = (props) => {
   const {value, elementRenderer} = props;
   const parser = useDomParser();
-
   const nodes = useMemo(() => parser.parse(value), [value]);
 
-  return renderDomNodes(nodes, elementRenderer);
+  return useMemo(() => renderDomNodes(nodes, elementRenderer), [nodes, elementRenderer]);
 };
 
 HtmlRenderer.displayName = 'HtmlRenderer';

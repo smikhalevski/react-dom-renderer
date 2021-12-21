@@ -16,7 +16,7 @@ export function renderDomNodes(nodes: Node[], elementRenderer: ElementRenderer =
 
   const nodeRenderer = (node: Node): ReactNode => {
     if (node.nodeType === NodeType.ELEMENT) {
-      return elementRenderer(node.tagName, node.attributes, ...node.children.map(nodeRenderer);
+      return elementRenderer(node.tagName, node.attributes, ...node.children.map(nodeRenderer));
     }
     if (node.nodeType === NodeType.TEXT) {
       return node.data;

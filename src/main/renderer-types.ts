@@ -8,4 +8,4 @@ import {ReactNode} from 'react';
  * @param children The element children varargs.
  * @returns The rendered element.
  */
-export type ElementRenderer = (tagName: string, attributes?: Record<string, string | null | undefined> | null, ...children: Array<ReactNode>) => ReactNode;
+export type ElementRenderer = (tagName: string, attributes?: Record<string, string | null | undefined> | null, ...children: ReactNode[]) => ReactNode;

@@ -5,6 +5,6 @@ import {IParser, Node} from 'tag-soup';
 /**
  * Returns an instance of the DOM parser.
  */
-export function useDomParser(): IParser<Array<Node>> {
+export function useDomParser(): IParser<Node[]> {
   return useContext(DomParserContext);
 }
