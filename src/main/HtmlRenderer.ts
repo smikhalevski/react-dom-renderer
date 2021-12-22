@@ -1,7 +1,7 @@
 import {useMemo, VFC} from 'react';
 import {useDomParser} from './useDomParser';
 import {renderDomNodes} from './renderDomNodes';
-import {ElementRenderer} from './renderer-types';
+import {DomPreprocessor, ElementRenderer} from './renderer-types';
 
 export interface IHtmlRendererProps {
 
@@ -13,20 +13,29 @@ export interface IHtmlRendererProps {
   /**
    * The element factory.
    *
-   * @default React.createElement
+   * **Note:** wrap this callback in `React.useCallback` to prevent excessive parsings.
+   *
+   * @default {@link htmlElementRenderer}
    */
   elementRenderer?: ElementRenderer;
+
+  /**
+   * The callback that receives the parsed DOM nodes and can optionally alter them.
+   *
+   * **Note:** wrap this callback in `React.useCallback` to prevent excessive renders.
+   */
+  domPreprocessor?: DomPreprocessor;
 }
 
 /**
  * Renders HTML source as React nodes using customizable element renderer.
  */
 export const HtmlRenderer: VFC<IHtmlRendererProps> = (props) => {
-  const {value, elementRenderer} = props;
+  const {value, elementRenderer, domPreprocessor} = props;
   const parser = useDomParser();
   const nodes = useMemo(() => parser.parse(value), [value]);
 
-  return useMemo(() => renderDomNodes(nodes, elementRenderer), [nodes, elementRenderer]);
+  return useMemo(() => renderDomNodes(domPreprocessor?.(nodes) || nodes, elementRenderer), [nodes, elementRenderer, domPreprocessor]);
 };
 
 HtmlRenderer.displayName = 'HtmlRenderer';

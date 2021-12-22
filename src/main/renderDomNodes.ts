@@ -1,14 +1,24 @@
 import {Node, NodeType} from 'tag-soup';
 import {createElement, Fragment, isValidElement, ReactElement, ReactNode} from 'react';
 import {ElementRenderer} from './renderer-types';
+import {toReactProps} from './toReactProps';
+
+/**
+ * The element renderer that converts HTML/SVG attribute names to React property names and parses inline styles.
+ */
+export const htmlElementRenderer: ElementRenderer = (tagName, attributes, ...children) => {
+  return createElement(tagName, toReactProps(attributes), ...children);
+};
 
 /**
  * Renders DOM tree as a React node.
  *
  * @param nodes The list of DOM nodes to render.
- * @param [elementRenderer = React.createElement] The element factory.
+ * @param elementRenderer The element factory.
+ *
+ * @see {@link htmlElementRenderer}
  */
-export function renderDomNodes(nodes: Node[], elementRenderer: ElementRenderer = createElement): ReactElement | null {
+export function renderDomNodes(nodes: Node[], elementRenderer: ElementRenderer = htmlElementRenderer): ReactElement | null {
 
   if (nodes.length === 0) {
     return null;
