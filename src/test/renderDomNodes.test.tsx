@@ -1,22 +1,22 @@
-import {domElementRenderer} from '../main';
+import {htmlElementRenderer} from '../main';
 
-describe('domElementRenderer', () => {
+describe('htmlElementRenderer', () => {
 
   test('parses style attribute', () => {
-    expect(domElementRenderer('a', {style: 'color:red'})).toEqual(<a style={{color: 'red'}}/>);
-    expect(domElementRenderer('a', {style: '-moz-animation-delay:1'})).toEqual(<a style={{MozAnimationDelay: '1'}}/>);
-    expect(domElementRenderer('a', {style: ''})).toEqual(<a style={{}}/>);
-    expect(domElementRenderer('a', {style: undefined})).toEqual(<a/>);
-    expect(domElementRenderer('a', {style: null})).toEqual(<a/>);
+    expect(htmlElementRenderer('a', {style: 'color:red'})).toEqual(<a style={{color: 'red'}}/>);
+    expect(htmlElementRenderer('a', {style: 'animation-delay:1'})).toEqual(<a style={{animationDelay: '1'}}/>);
+    expect(htmlElementRenderer('a', {style: ''})).toEqual(<a style={{}}/>);
+    expect(htmlElementRenderer('a', {style: undefined})).toEqual(<a/>);
+    expect(htmlElementRenderer('a', {style: null})).toEqual(<a/>);
   });
 
   test('renames attributes', () => {
-    expect(domElementRenderer('a', {class: 'foo'})).toEqual(<a className="foo"/>);
-    expect(domElementRenderer('a', {class: ''})).toEqual(<a className=""/>);
+    expect(htmlElementRenderer('a', {class: 'foo'})).toEqual(<a className="foo"/>);
+    expect(htmlElementRenderer('a', {class: ''})).toEqual(<a className=""/>);
   });
 
   test('preserves data and aria attributes', () => {
-    expect(domElementRenderer('a', {'data-foo-bar': 'aaa'})).toEqual(<a data-foo-bar="aaa"/>);
-    expect(domElementRenderer('a', {'aria-autocomplete': 'none'})).toEqual(<a aria-autocomplete="none"/>);
+    expect(htmlElementRenderer('a', {'data-foo-bar': 'aaa'})).toEqual(<a data-foo-bar="aaa"/>);
+    expect(htmlElementRenderer('a', {'aria-autocomplete': 'none'})).toEqual(<a aria-autocomplete="none"/>);
   });
 });

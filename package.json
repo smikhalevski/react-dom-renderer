@@ -1,7 +1,7 @@
 {
-  "name": "@smikhalevski/react-html-renderer",
+  "name": "react-dom-renderer",
   "version": "1.0.1",
-  "description": "Renders HTML source as React nodes using customizable element renderer.",
+  "description": "Renders XML/HTML/SVG source as React nodes using customizable element renderer.",
   "main": "./lib/index-cjs.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smikhalevski/react-html-renderer.git"
+    "url": "git+https://github.com/smikhalevski/react-dom-renderer.git"
   },
   "keywords": [
     "react",
@@ -28,9 +28,9 @@
   "author": "Savva Mikhalevski <smikhalevski@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/smikhalevski/react-html-renderer/issues"
+    "url": "https://github.com/smikhalevski/react-dom-renderer/issues"
   },
-  "homepage": "https://github.com/smikhalevski/react-html-renderer#readme",
+  "homepage": "https://github.com/smikhalevski/react-dom-renderer#readme",
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",

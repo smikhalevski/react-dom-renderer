@@ -3,7 +3,7 @@ import {useDomParser} from './useDomParser';
 import {renderDomNodes} from './renderDomNodes';
 import {DomPreprocessor, ElementRenderer} from './renderer-types';
 
-export interface IHtmlRendererProps {
+export interface IDomRendererProps {
 
   /**
    * The HTML value to render.
@@ -15,7 +15,7 @@ export interface IHtmlRendererProps {
    *
    * **Note:** wrap this callback in `React.useCallback` to prevent excessive parsings.
    *
-   * @default {@link domElementRenderer}
+   * @default {@link htmlElementRenderer}
    */
   elementRenderer?: ElementRenderer;
 
@@ -30,7 +30,7 @@ export interface IHtmlRendererProps {
 /**
  * Renders HTML source as React nodes using customizable element renderer.
  */
-export const HtmlRenderer: VFC<IHtmlRendererProps> = (props) => {
+export const DomRenderer: VFC<IDomRendererProps> = (props) => {
   const {value, elementRenderer, domPreprocessor} = props;
   const parser = useDomParser();
   const nodes = useMemo(() => parser.parse(value), [value]);
@@ -38,4 +38,4 @@ export const HtmlRenderer: VFC<IHtmlRendererProps> = (props) => {
   return useMemo(() => renderDomNodes(domPreprocessor?.(nodes) || nodes, elementRenderer), [nodes, elementRenderer, domPreprocessor]);
 };
 
-HtmlRenderer.displayName = 'HtmlRenderer';
+DomRenderer.displayName = 'DomRenderer';
