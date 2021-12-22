@@ -6,6 +6,12 @@ Renders HTML source as React nodes using customizable element renderer.
 npm install --save-prod @smikhalevski/react-html-renderer
 ```
 
+This library is build on top of [TagSoup 🍜](https://github.com/smikhalevski/tag-soup), the fastest and the tiniest
+XML/HTML parser.
+
+The size of this package
+is [just 7 kB gzipped](https://bundlephobia.com/package/@smikhalevski/react-html-renderer), including all dependencies.
+
 # Usage
 
 Render an HTML as React nodes.
@@ -45,7 +51,7 @@ Use customized DOM parser.
 
 In this example we are going to initialize a parser that recognizes custom HTML entities.
 
-Have a look at [TagSoup](https://github.com/smikhalevski/tag-soup)
+Have a look at [TagSoup 🍜](https://github.com/smikhalevski/tag-soup)
 and [speedy-entities](https://github.com/smikhalevski/speedy-entities) for more details on configuration.
 
 ```tsx
@@ -61,7 +67,7 @@ const parser = createHtmlDomParser(domHandler, {
   decodeText: createEntityDecoder(entityManager),
 });
 
-const result = render(
+const MyComponent = () => (
     <DomParserContext.Provider value={parser}>
       <HtmlRenderer value={'&wtfisthis;'}/>
     </DomParserContext.Provider>
