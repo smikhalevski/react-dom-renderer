@@ -1,7 +1,7 @@
 {
-  "name": "@smikhalevski/react-html-renderer",
+  "name": "react-dom-renderer",
   "version": "1.0.1",
-  "description": "Renders HTML source as React nodes using customizable element renderer.",
+  "description": "Renders XML/HTML/SVG source as React nodes using customizable element renderer.",
   "main": "./lib/index-cjs.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -11,14 +11,14 @@
   ],
   "scripts": {
     "build": "tsc && npm run rollup && npm run terser",
-    "rollup": "rollup --external tag-soup,react,tslib --input ./lib/index.js --file ./lib/index-cjs.js --format cjs --plugin @rollup/plugin-node-resolve",
-    "terser": "for file in $(find ./lib -name '*.js'); do terser --compress --mangle --mangle-props regex=/^_/ --output $file -- $file; done || exit 1",
+    "rollup": "rollup --external tag-soup,react,style-to-object,tslib --input ./lib/index.js --file ./lib/index-cjs.js --format cjs --plugin @rollup/plugin-node-resolve",
+    "terser": "for file in $(find ./lib -name '*.js'); do terser --compress --mangle --output $file -- $file; done || exit 1",
     "clean": "rm -rf ./lib ./docs",
     "test": "jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smikhalevski/react-html-renderer.git"
+    "url": "git+https://github.com/smikhalevski/react-dom-renderer.git"
   },
   "keywords": [
     "react",
@@ -28,9 +28,9 @@
   "author": "Savva Mikhalevski <smikhalevski@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/smikhalevski/react-html-renderer/issues"
+    "url": "https://github.com/smikhalevski/react-dom-renderer/issues"
   },
-  "homepage": "https://github.com/smikhalevski/react-html-renderer#readme",
+  "homepage": "https://github.com/smikhalevski/react-dom-renderer#readme",
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
@@ -60,6 +60,7 @@
     "tslib": "^2.3.1"
   },
   "dependencies": {
+    "style-to-object": "^0.3.0",
     "tag-soup": "^1.1.1-next.0"
   }
 }
