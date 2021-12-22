@@ -15,7 +15,7 @@ export interface IHtmlRendererProps {
    *
    * **Note:** wrap this callback in `React.useCallback` to prevent excessive parsings.
    *
-   * @default {@link htmlElementRenderer}
+   * @default {@link domElementRenderer}
    */
   elementRenderer?: ElementRenderer;
 

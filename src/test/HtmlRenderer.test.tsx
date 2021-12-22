@@ -29,6 +29,30 @@ describe('HtmlRenderer', () => {
     expect(result.baseElement.innerHTML).toBe('<div><p></p><p></p></div>');
   });
 
+  test('renders aria attributes', () => {
+    const result = render(<HtmlRenderer value={'<input aria-valuenow=75>'}/>);
+
+    expect(result.baseElement.innerHTML).toBe('<div><input aria-valuenow="75"></div>');
+  });
+
+  test('renders data attributes', () => {
+    const result = render(<HtmlRenderer value={'<a data-foo-bar=aaa>'}/>);
+
+    expect(result.baseElement.innerHTML).toBe('<div><a data-foo-bar="aaa"></a></div>');
+  });
+
+  test('renders style attribute', () => {
+    const result = render(<HtmlRenderer value={'<a style="color:red">'}/>);
+
+    expect(result.baseElement.innerHTML).toBe('<div><a style="color: red;"></a></div>');
+  });
+
+  test('renders style attribute with snake keys', () => {
+    const result = render(<HtmlRenderer value={'<a style="animation-delay:1">'}/>);
+
+    expect(result.baseElement.innerHTML).toBe('<div><a style="animation-delay: 1;"></a></div>');
+  });
+
   test('uses custom element renderer', () => {
     const elementRenderer: ElementRenderer = (tagName) => {
       // Tag name is lower cased
