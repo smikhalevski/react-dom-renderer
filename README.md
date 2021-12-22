@@ -9,8 +9,8 @@ npm install --save-prod @smikhalevski/react-html-renderer
 This library is build on top of [TagSoup 🍜](https://github.com/smikhalevski/tag-soup), the fastest and the tiniest
 XML/HTML parser.
 
-The size of this package
-is [just 7 kB gzipped](https://bundlephobia.com/package/@smikhalevski/react-html-renderer), including all dependencies.
+The size of this package is [just 8 kB gzipped](https://bundlephobia.com/package/@smikhalevski/react-html-renderer),
+including all dependencies.
 
 # Usage
 
@@ -28,22 +28,56 @@ const MyComponent = () => (
 Use the custom element renderer.
 
 ```tsx
+import {useCallback} from 'react';
 import {ElementRenderer, HtmlRenderer} from '@smikhalevski/react-html-renderer';
 
-const elementRenderer: ElementRenderer = (tagName) => {
-  // Tag names are lower cased
-  if (tagName === 'bear') {
-    return <strong>{'Bonjour'}</strong>;
-  }
-  // Forest tag is ignored
-};
+const MyComponent = () => {
 
-const MyComponent = () => (
-    <HtmlRenderer
-        value={'<Bear><Forest>'}
-        elementRenderer={elementRenderer}
-    />
-);
+  // Prevent excessive parsings by useCallback
+  const elementRenderer = useCallback<ElementRenderer>((tagName) => {
+    // Tag names are lower cased
+    if (tagName === 'bear') {
+      return <strong>{'Bonjour'}</strong>;
+    }
+    // Other tags aren't rendered
+  });
+
+  return (
+      <HtmlRenderer
+          value={'<Bear><Forest>'}
+          elementRenderer={elementRenderer}
+      />
+  );
+};
+// → <strong>Bonjour</strong>
+```
+
+Use the DOM pre-processor to alter the node tree before rendering.
+
+In this example we are going to unwrap root `p` element if it's the only one.
+
+```tsx
+import {useCallback} from 'react';
+import {ElementRenderer, HtmlRenderer} from '@smikhalevski/react-html-renderer';
+
+const MyComponent = () => {
+
+  // Prevent excessive parsings by useCallback
+  const elementRenderer = useCallback<ElementRenderer>((tagName) => {
+    // Tag names are lower cased
+    if (tagName === 'bear') {
+      return <strong>{'Bonjour'}</strong>;
+    }
+    // Other tags aren't rendered
+  });
+
+  return (
+      <HtmlRenderer
+          value={'<Bear><Forest>'}
+          elementRenderer={elementRenderer}
+      />
+  );
+};
 // → <strong>Bonjour</strong>
 ```
 
