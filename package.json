@@ -1,6 +1,6 @@
 {
   "name": "react-dom-renderer",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Renders XML/HTML/SVG source as React nodes using customizable element renderer.",
   "main": "./lib/index-cjs.js",
   "module": "./lib/index.js",
