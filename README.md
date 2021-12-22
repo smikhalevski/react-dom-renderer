@@ -14,7 +14,7 @@ dependencies.
 
 # Usage
 
-Render an HTML as React nodes.
+By default, markup is treated as HTML.
 
 ```tsx
 import {DomRenderer} from 'react-dom-renderer';
@@ -25,7 +25,7 @@ const MyComponent = () => (
 // → <><b>Hello</b>, world</>
 ```
 
-Use the custom element renderer.
+You can specify the element renderer and introduce your custom elements.
 
 ```tsx
 import {useCallback} from 'react';
@@ -35,16 +35,19 @@ const MyComponent = () => {
 
   // Prevent excessive parsings by useCallback
   const elementRenderer = useCallback<ElementRenderer>((tagName) => {
-    // Tag names are lower cased
-    if (tagName === 'bear') {
+    // Tag name is lower cased because HTML parser is used
+    if (tagName === 'le:bear') {
       return <strong>{'Bonjour'}</strong>;
     }
-    // Other tags aren't rendered
+    if (tagName === 'forest') {
+      // Do something here
+    }
+    // All other tags are ignored
   });
 
   return (
       <DomRenderer
-          value={'<Bear><Forest>'}
+          value={'<le:Bear><Forest>'}
           elementRenderer={elementRenderer}
       />
   );
@@ -52,7 +55,7 @@ const MyComponent = () => {
 // → <strong>Bonjour</strong>
 ```
 
-Use the DOM pre-processor to alter the node tree before rendering.
+Provide the DOM pre-processor to alter the node tree before rendering.
 
 In this example we are going to unwrap root `p` element if it's the only one.
 
@@ -84,9 +87,9 @@ const MyComponent = () => {
 // → <>No paragraphs</>
 ```
 
-Use customized DOM parser.
+Use the customized DOM parser.
 
-In this example we are going to initialize a parser that recognizes custom HTML entities.
+In this example we are going to initialize a parser that recognizes custom entities.
 
 Have a look at [TagSoup 🍜](https://github.com/smikhalevski/tag-soup)
 and [speedy-entities](https://github.com/smikhalevski/speedy-entities) for more details on configuration.

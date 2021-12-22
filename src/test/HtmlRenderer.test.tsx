@@ -55,13 +55,13 @@ describe('DomRenderer', () => {
 
   test('uses custom element renderer', () => {
     const elementRenderer: ElementRenderer = (tagName) => {
-      // Tag name is lower cased
-      if (tagName === 'bear') {
+      // Tag name is lower cased because HTML parser is used
+      if (tagName === 'le:bear') {
         return <strong>{'Bonjour'}</strong>;
       }
-      // Forest is ignored
+      // All other tags are ignored
     };
-    const result = render(<DomRenderer value={'<Bear><Forest>'} elementRenderer={elementRenderer}/>);
+    const result = render(<DomRenderer value={'<le:Bear><le:Forest>'} elementRenderer={elementRenderer}/>);
 
     expect(result.baseElement.innerHTML).toBe('<div><strong>Bonjour</strong></div>');
   });
